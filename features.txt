@@ -1,0 +1,5 @@
+Features:
+-Faster pan camera movement
+-More range to zoom with the camera
+-Being able to join servers
+-Being able to be a distributor

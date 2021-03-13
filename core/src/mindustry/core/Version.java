@@ -21,7 +21,7 @@ public class Version{
     /** Whether version loading is enabled. */
     public static boolean enabled = true;
 
-    public static int tsr_build = 1;
+    public static int tsr_build = 2;
 
     public static void init(){
         if(!enabled) return;
