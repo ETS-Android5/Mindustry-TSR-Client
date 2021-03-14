@@ -13,6 +13,8 @@ import mindustry.world.*;
 import mindustry.world.blocks.payloads.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.meta.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -51,13 +53,34 @@ public class PayloadConveyor extends Block{
         }
     }
 
-    public class PayloadConveyorBuild extends Building{
+    public class PayloadConveyorBuild extends Building implements ControlBlock{
         public @Nullable Payload item;
         public float progress, itemRotation, animation;
         public float curInterp, lastInterp;
         public @Nullable Building next;
         public boolean blocked;
         public int step = -1, stepAccepted = -1;
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public Payload takePayload(){

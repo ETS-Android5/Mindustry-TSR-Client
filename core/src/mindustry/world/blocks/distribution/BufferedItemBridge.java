@@ -1,10 +1,13 @@
 package mindustry.world.blocks.distribution;
 
 import arc.math.*;
+import arc.util.*;
 import arc.util.io.*;
 import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 public class BufferedItemBridge extends ExtendingItemBridge{
     public final int timerAccept = timers++;
@@ -19,8 +22,29 @@ public class BufferedItemBridge extends ExtendingItemBridge{
         canOverdrive = true;
     }
 
-    public class BufferedItemBridgeBuild extends ExtendingItemBridgeBuild{
+    public class BufferedItemBridgeBuild extends ExtendingItemBridgeBuild implements ControlBlock{
         ItemBuffer buffer = new ItemBuffer(bufferCapacity);
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void updateTransport(Building other){

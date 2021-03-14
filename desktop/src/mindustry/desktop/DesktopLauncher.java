@@ -34,7 +34,7 @@ public class DesktopLauncher extends ClientLauncher{
         try{
             Vars.loadLogger();
             new SdlApplication(new DesktopLauncher(arg), new SdlConfig(){{
-                title = "Mindustry";
+                title = Strings.format("TSR Client Build @, Mindustry Version @", Version.tsr_build, Version.build + (Version.revision == 0 ? "" : "." + Version.revision));
                 maximized = true;
                 width = 900;
                 height = 700;

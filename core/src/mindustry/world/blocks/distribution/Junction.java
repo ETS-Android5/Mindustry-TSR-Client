@@ -6,6 +6,8 @@ import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -27,8 +29,29 @@ public class Junction extends Block{
         return true;
     }
 
-    public class JunctionBuild extends Building{
+    public class JunctionBuild extends Building implements ControlBlock{
         public DirectionalItemBuffer buffer = new DirectionalItemBuffer(capacity);
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public int acceptStack(Item item, int amount, Teamc source){

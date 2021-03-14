@@ -98,7 +98,7 @@ public class StackConveyor extends Block implements Autotiler{
         return super.rotatedOutput(x, y);
     }
 
-    public class StackConveyorBuild extends Building{
+    public class StackConveyorBuild extends Building implements ControlBlock{
         public int state, blendprox;
 
         public int link = -1;
@@ -106,6 +106,27 @@ public class StackConveyor extends Block implements Autotiler{
         public Item lastItem;
 
         boolean proxUpdating = false;
+        
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void draw(){

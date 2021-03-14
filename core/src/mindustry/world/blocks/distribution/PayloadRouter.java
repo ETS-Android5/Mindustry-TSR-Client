@@ -8,6 +8,8 @@ import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 public class PayloadRouter extends PayloadConveyor{
     public @Load("@-over") TextureRegion overRegion;
@@ -26,9 +28,30 @@ public class PayloadRouter extends PayloadConveyor{
         Draw.rect(overRegion, req.drawx(), req.drawy());
     }
 
-    public class PayloadRouterBuild extends PayloadConveyorBuild{
+    public class PayloadRouterBuild extends PayloadConveyorBuild implements ControlBlock{
         public float smoothRot;
 
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
+        
         @Override
         public void add(){
             super.add();

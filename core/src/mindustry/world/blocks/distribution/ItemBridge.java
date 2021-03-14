@@ -17,7 +17,8 @@ import mindustry.input.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
-
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 import static mindustry.Vars.*;
 
 public class ItemBridge extends Block{
@@ -164,13 +165,34 @@ public class ItemBridge extends Block{
         Placement.calculateNodes(points, this, rotation, (point, other) -> Math.max(Math.abs(point.x - other.x), Math.abs(point.y - other.y)) <= range);
     }
 
-    public class ItemBridgeBuild extends Building{
+    public class ItemBridgeBuild extends Building implements ControlBlock{
         public int link = -1;
         public IntSet incoming = new IntSet();
         public float uptime;
         public float time;
         public float time2;
         public float cycleSpeed = 1f;
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void playerPlaced(Object config){

@@ -7,6 +7,8 @@ import mindustry.gen.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 public class OverflowGate extends Block{
     public float speed = 1f;
@@ -29,7 +31,28 @@ public class OverflowGate extends Block{
         return true;
     }
 
-    public class OverflowGateBuild extends Building{
+    public class OverflowGateBuild extends Building implements ControlBlock{
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public boolean acceptItem(Building source, Item item){

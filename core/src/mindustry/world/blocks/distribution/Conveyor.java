@@ -103,7 +103,7 @@ public class Conveyor extends Block implements Autotiler{
             Mathf.mod(req.tile().build.rotation - req.rotation, 2) == 1 ? Blocks.junction : this;
     }
 
-    public class ConveyorBuild extends Building implements ChainedBuilding{
+    public class ConveyorBuild extends Building implements ChainedBuilding, ControlBlock{
         //parallel array data
         public Item[] ids = new Item[capacity];
         public float[] xs = new float[capacity];
@@ -123,6 +123,26 @@ public class Conveyor extends Block implements Autotiler{
         public int blendsclx, blendscly;
 
         public float clogHeat = 0f;
+	public @Nullable BlockUnitc unit;
+
+	@Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+	@Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void draw(){

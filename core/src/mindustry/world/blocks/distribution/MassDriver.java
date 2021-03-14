@@ -16,6 +16,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -91,12 +93,33 @@ public class MassDriver extends Block{
         }
     }
 
-    public class MassDriverBuild extends Building{
+    public class MassDriverBuild extends Building implements ControlBlock{
         public int link = -1;
         public float rotation = 90;
         public float reload = 0f;
         public DriverState state = DriverState.idle;
         public OrderedSet<Tile> waitingShooters = new OrderedSet<>();
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         public Tile currentShooter(){
             return waitingShooters.isEmpty() ? null : waitingShooters.first();

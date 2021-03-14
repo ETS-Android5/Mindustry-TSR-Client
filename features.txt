@@ -1,5 +1,17 @@
-Features:
+Build 1:
 -Faster pan camera movement
 -More range to zoom with the camera
 -Being able to join servers
+
+Build 2:
 -Being able to be a distributor
+
+Build 3:
+- **(SINGLEPLAYER OR SELF HOSTED ONLY)** Being able to control Coneyor, Titanium conveyor, plastanium conveyor,
+ armored conveyor, junction, bridge conveyor, phase conveyor, sorted, inverted sorter, 
+ overflow gate, underflow gate, mass driver, payload conveyor, payload router
+-**(SINGELPLAYER OR SELF HOSTED ONLY)** Being able to place and use the blockforge, the blockloader, the blockunloader, 
+ the large launchpad, the launchpad and the accelerator
+-increased max schematic size
+-**(SINGLEPLAYER OR SELF HOSTED ONLY)** enabled typing into the console
+-custom app title

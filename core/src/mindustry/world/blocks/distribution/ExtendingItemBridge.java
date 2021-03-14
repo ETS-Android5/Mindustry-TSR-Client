@@ -3,9 +3,14 @@ package mindustry.world.blocks.distribution;
 import arc.graphics.g2d.*;
 import arc.math.*;
 import arc.math.geom.*;
+import arc.util.*;
 import mindustry.core.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
+import mindustry.type.*;
+import mindustry.gen.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -16,7 +21,29 @@ public class ExtendingItemBridge extends ItemBridge{
         hasItems = true;
     }
 
-    public class ExtendingItemBridgeBuild extends ItemBridgeBuild{
+    public class ExtendingItemBridgeBuild extends ItemBridgeBuild implements ControlBlock{
+        
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
+        
         @Override
         public void draw(){
             Draw.rect(region, x, y);

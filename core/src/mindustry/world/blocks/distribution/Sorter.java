@@ -11,6 +11,7 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.*;
 import mindustry.world.meta.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -47,8 +48,29 @@ public class Sorter extends Block{
         return build == null || build.sortItem == null ? 0 : build.sortItem.color.rgba();
     }
 
-    public class SorterBuild extends Building{
+    public class SorterBuild extends Building implements ControlBlock{
         public @Nullable Item sortItem;
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return size == 1 || true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void configured(Unit player, Object value){
