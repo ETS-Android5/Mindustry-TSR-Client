@@ -79,7 +79,7 @@ public class ConstructBlock extends Block{
             }
 
             if(builder != null && builder.getControllerName() != null){
-                tile.build.lastAccessed = builder.getControllerName();
+                tile.build.lastAccessed += ", " + builder.getControllerName();
             }
         }
 

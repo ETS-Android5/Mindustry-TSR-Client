@@ -11,6 +11,8 @@ import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -70,9 +72,29 @@ public class Wall extends Block{
         return new TextureRegion[]{Core.atlas.find(Core.atlas.has(name) ? name : name + "1")};
     }
 
-    public class WallBuild extends Building{
+    public class WallBuild extends Building implements ControlBlock{
         public float hit;
+        public @Nullable BlockUnitc unit;
 
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
+        
         @Override
         public void draw(){
             if(variants == 0){

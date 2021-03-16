@@ -2,11 +2,14 @@ package mindustry.world.blocks.defense;
 
 import arc.graphics.*;
 import arc.graphics.g2d.*;
+import arc.util.*;
 import arc.math.*;
 import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.world.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 public class ShockMine extends Block{
     public final int timerDamage = timers++;
@@ -27,7 +30,28 @@ public class ShockMine extends Block{
         rebuildable = false;
     }
 
-    public class ShockMineBuild extends Building{
+    public class ShockMineBuild extends Building implements ControlBlock{
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void drawTeam(){

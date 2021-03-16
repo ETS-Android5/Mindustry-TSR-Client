@@ -137,7 +137,7 @@ abstract class PayloadComp implements Posc, Rotc, Hitboxc, Unitc{
             payload.place(on, rot);
 
             if(getControllerName() != null){
-                payload.build.lastAccessed = getControllerName();
+                payload.build.lastAccessed += ", " + getControllerName();
             }
 
             Fx.unitDrop.at(tile);

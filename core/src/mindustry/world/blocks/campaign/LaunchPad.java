@@ -22,6 +22,7 @@ import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
+import mindustry.world.blocks.*;
 
 import static mindustry.Vars.*;
 
@@ -63,7 +64,28 @@ public class LaunchPad extends Block{
         return false;
     }
 
-    public class LaunchPadBuild extends Building{
+    public class LaunchPadBuild extends Building implements ControlBlock{
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public Cursor getCursor(){

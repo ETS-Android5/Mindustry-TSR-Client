@@ -947,7 +947,7 @@ abstract class BuildingComp implements Posc, Teamc, Healthc, Buildingc, Timerc, 
         if(value instanceof Liquid) type = Liquid.class;
         
         if(builder != null && builder.isPlayer()){
-            lastAccessed = builder.getPlayer().name;
+            lastAccessed += ", " + builder.getPlayer().name;
         }
 
         if(block.configurations.containsKey(type)){

@@ -14,6 +14,8 @@ import mindustry.logic.*;
 import mindustry.ui.*;
 import mindustry.world.*;
 import mindustry.world.meta.*;
+import mindustry.world.blocks.*;
+import mindustry.content.*;
 
 import static mindustry.Vars.*;
 
@@ -75,11 +77,31 @@ public class OverdriveProjector extends Block{
         bars.add("boost", (OverdriveBuild entity) -> new Bar(() -> Core.bundle.format("bar.boost", (int)(entity.realBoost() * 100)), () -> Pal.accent, () -> entity.realBoost() / (hasBoost ? speedBoost + speedBoostPhase : speedBoost)));
     }
 
-    public class OverdriveBuild extends Building implements Ranged{
+    public class OverdriveBuild extends Building implements Ranged, ControlBlock{
         float heat;
         float charge = Mathf.random(reload);
         float phaseHeat;
         float smoothEfficiency;
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public float range(){

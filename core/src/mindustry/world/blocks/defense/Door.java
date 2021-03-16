@@ -15,6 +15,7 @@ import mindustry.entities.*;
 import mindustry.entities.units.*;
 import mindustry.gen.*;
 import mindustry.logic.*;
+import mindustry.world.blocks.*;
 
 import static mindustry.Vars.*;
 
@@ -54,9 +55,30 @@ public class Door extends Wall{
         return req.config == Boolean.TRUE ? openRegion : region;
     }
 
-    public class DoorBuild extends Building{
+    public class DoorBuild extends Building implements ControlBlock{
         public boolean open = false;
         public ObjectSet<DoorBuild> chained = new ObjectSet<>();
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void onProximityAdded(){

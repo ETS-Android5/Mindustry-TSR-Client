@@ -2,8 +2,13 @@ package mindustry.world.blocks.defense;
 
 import arc.graphics.g2d.*;
 import arc.util.*;
+import arc.math.*;
 import mindustry.annotations.Annotations.*;
 import mindustry.entities.units.*;
+import mindustry.world.blocks.*;
+import mindustry.gen.*;
+import mindustry.entities.*;
+import mindustry.content.*;
 
 public class Thruster extends Wall{
     public @Load("@-top") TextureRegion topRegion;
@@ -25,7 +30,28 @@ public class Thruster extends Wall{
         return new TextureRegion[]{region, topRegion};
     }
 
-    public class ThrusterBuild extends WallBuild{
+    public class ThrusterBuild extends WallBuild implements ControlBlock{
+
+        public @Nullable BlockUnitc unit;
+
+        @Override
+        public Unit unit(){
+            if(unit == null){
+                unit = (BlockUnitc)UnitTypes.block.create(team);
+                unit.tile(this);
+            }
+            return (Unit)unit;
+        }
+
+        @Override
+        public boolean canControl(){
+            return true;
+        }
+
+        @Override
+        public boolean shouldAutoTarget(){
+            return false;
+        }
 
         @Override
         public void draw(){
