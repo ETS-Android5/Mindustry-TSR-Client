@@ -1,6 +1,6 @@
 # DISCONTINUED
 This client has been discontinued because of TSR-Foo (My custom client forked from Foo)
-Please see here(https://github.com/GaviTSRA/TSR-Foo-Client) for more details.
+Please see [here](https://github.com/GaviTSRA/TSR-Foo-Client) for more details.
 
 
 ![Logo](core/assets-raw/sprites/ui/logo.png)
